@@ -21,8 +21,12 @@ class OpenclawToggle < Formula
     (app_bundle/"Contents/MacOS").mkpath
     (app_bundle/"Contents/Resources").mkpath
 
-    # Copy binary
-    (app_bundle/"Contents/MacOS"/app_name).install ".build/release/#{app_name}"
+    # Copy binary — use cp instead of Pathname#install to avoid creating
+    # a directory at the executable path.  Pathname#install treats the
+    # receiver as a *directory* and copies the source into it, which would
+    # produce Contents/MacOS/OpenClawToggle/OpenClawToggle (a dir containing
+    # the real binary) instead of Contents/MacOS/OpenClawToggle (the binary).
+    cp ".build/release/#{app_name}", app_bundle/"Contents/MacOS"/app_name
 
     # Copy Info.plist
     (app_bundle/"Contents").install "Info.plist"
@@ -52,7 +56,10 @@ class OpenclawToggle < Formula
   end
 
   test do
-    assert_predicate prefix/"OpenClawToggle.app/Contents/MacOS/OpenClawToggle", :exist?
+    binary = prefix/"OpenClawToggle.app/Contents/MacOS/OpenClawToggle"
+    assert_predicate binary, :exist?
+    assert_predicate binary, :file?, "Binary must be a file, not a directory"
+    assert_predicate binary, :executable?
     assert_predicate prefix/"OpenClawToggle.app/Contents/Info.plist", :exist?
   end
 end
