@@ -3,7 +3,7 @@ class OpenclawToggle < Formula
   homepage "https://github.com/aariya50/openclaw-toggle"
   url "https://github.com/aariya50/openclaw-toggle.git",
       tag:      "v1.0.0",
-      revision: "f15131f51a0b1f1e011a0552e7ee89760c7fca38"
+      revision: "2f86521a1d7bc17f046cb534dc9eabd0d02d3341"
   license "MIT"
 
   head "https://github.com/aariya50/openclaw-toggle.git", branch: "main"
