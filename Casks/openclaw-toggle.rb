@@ -7,7 +7,7 @@ cask "openclaw-toggle" do
   desc "macOS menu bar app to monitor and control OpenClaw node and SSH tunnel services"
   homepage "https://github.com/aariya50/openclaw-toggle"
 
-  depends_on macos: :sonoma
+  depends_on macos: ">= :sonoma"
 
   app "OpenClawToggle.app"
 
